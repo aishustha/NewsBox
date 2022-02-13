@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="30sp"
+    android:padding="30sp"
     android:orientation="vertical"
     android:textAlignment="textEnd"
     tools:context=".SignUp">
@@ -27,7 +27,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/emailEt"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_marginTop="15sp"
@@ -48,7 +48,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/passwordEt"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_marginTop="15sp"

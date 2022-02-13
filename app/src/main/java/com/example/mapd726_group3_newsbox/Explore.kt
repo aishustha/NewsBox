@@ -1,7 +1,9 @@
 package com.example.mapd726_group3_newsbox
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import androidx.appcompat.app.ActionBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -12,11 +14,14 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mapd726_group3_newsbox.databinding.ActivityExploreBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class Explore : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    //ViewBinding
     private lateinit var binding: ActivityExploreBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +48,9 @@ class Explore : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
+
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
