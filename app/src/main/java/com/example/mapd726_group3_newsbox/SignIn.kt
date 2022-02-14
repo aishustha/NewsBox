@@ -1,13 +1,16 @@
 package com.example.mapd726_group3_newsbox
 
 
+import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.example.mapd726_group3_newsbox.databinding.ActivitySignInBinding
@@ -23,7 +26,7 @@ class SignIn : AppCompatActivity() {
     private lateinit var actionBar: ActionBar
 
 
-    //ProgressDiaglog
+    //ProgressDialog
     private lateinit var progressDialog:ProgressDialog
 
     //FirebaseAuth
@@ -63,6 +66,9 @@ class SignIn : AppCompatActivity() {
             validateData()
         }
 
+        binding.tvForgotPassword.setOnClickListener {
+            startActivity(Intent(this, ForgotPassword::class.java))
+        }
 
 
 //        val signIn = findViewById<Button>(R.id.SignInBtn)
@@ -78,6 +84,7 @@ class SignIn : AppCompatActivity() {
 //            startActivity(intent)
 //        }
     }
+
 
     private fun validateData() {
         //get data
