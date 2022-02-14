@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MAPD726Group3NewsBox">
+        android:usesCleartextTraffic="true" //added
         <activity
             android:name=".Profile"
             android:exported="false" />
