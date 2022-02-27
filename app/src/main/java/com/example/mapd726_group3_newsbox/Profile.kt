@@ -5,19 +5,30 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mapd726_group3_newsbox.databinding.ActivityExploreBinding
 import com.example.mapd726_group3_newsbox.databinding.ActivityProfileBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.*
+import com.google.firebase.database.core.RepoManager.clear
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import org.w3c.dom.Comment
 
 class Profile : AppCompatActivity() {
     //database reference for reading from database
     //private lateinit var database: DatabaseReference
     private lateinit var database:  FirebaseFirestore
+    private lateinit var db: DatabaseReference
+
+    private lateinit var userRecyclerView: RecyclerView
+    private lateinit var articlearrayList: ArrayList<Article>
 
 
     //ViewBinding
@@ -39,48 +50,94 @@ class Profile : AppCompatActivity() {
         actionBar = supportActionBar!!
         actionBar.title = "Explore"
 
-        //init firebasea auth
+        //init firebase auth
         firebaseAuth = FirebaseAuth.getInstance()
         checkUser()
 
         //connection for reading from database
-        //database = Firebase.database.reference
+        db = Firebase.database.reference
         database= FirebaseFirestore.getInstance()
+        getData()
 
         //handle click, logout
         binding.logoutBtn.setOnClickListener {
             firebaseAuth.signOut()
             checkUser()
         }
-        getArticle()
+
+        userRecyclerView = findViewById(R.id.rNewsList)
+        userRecyclerView.layoutManager = LinearLayoutManager(this)
+        userRecyclerView.setHasFixedSize(true)
+
+        articlearrayList = arrayListOf<Article>()
+        getDataList()
     }
 
-    private fun getArticle()
+    //gets list from collections where category matches the search string cat
+
+    private fun getData()
     {
-        database.collection("Articles")
-            .whereEqualTo("category", "space")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    Log.d(TAG, "${document.id} => ${document.data}")
+        database= FirebaseFirestore.getInstance()
+        val list = database.collection("ScrapedFeed").document("BBC News - World")
+            .get().addOnSuccessListener {
+                if (it.exists()) {
+                    val data = it.data
+                    println(data)
+                    //set to text view
+                    binding.data.text = data.toString()
+//                    data?.let {
+//                        for ((key, value) in data) {
+//                            val v = value as Map<*, *>
+//                            val time = v["time"]
+//                            Log.d(TAG, "$key -> $time")
+//                        }
+//                    }
+                }
+        }.addOnFailureListener{
+            Log.e("firebase", "Error getting data", it)
+        }
+    }
+    private fun getDataList()
+    { database= FirebaseFirestore.getInstance()
+        val list = database.collection("ScrapedFeed").document("BBC News - World")
+            .get().addOnSuccessListener {
+                if (it.exists()) {
+                    val data = it.data
+                    //println(data)
+
+                    //set to text view
+                    binding.data.text = data.toString()
+                    data?.let {
+                        for ((key, value) in data) {
+                            val v = value as Map<*, *>
+                            val time = v["time"]
+                            Log.d(TAG, "$key -> $time")
+                        }
+                    }
+                }
+            }.addOnFailureListener{
+                Log.e("firebase", "Error getting data", it)
+            }
+    }
+
+
+    private fun getDatList()
+    {
+        val newsArticleList: MutableList<NewsArticle> = mutableListOf()
+
+            val listListener = object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    newsArticleList.clear()
+                    dataSnapshot.children.mapNotNullTo(newsArticleList) { it.getValue<NewsArticle>(NewsArticle::class.java) }
+                    println(newsArticleList)
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    println("loadPost:onCancelled ${databaseError.toException()}")
                 }
             }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents: ", exception)
-            }
-//        // Create a reference to the cities collection
-//        val spaceCategory = database.collection("Articles")
-//        // Create a query against the collection.
-//        val query = spaceCategory.whereEqualTo("category", "space").get()
-//        println(query)
+            db.child("ScrapedFeed").child("BBC News - World").addListenerForSingleValueEvent(listListener)
 
-       // database.child("Articles").child("category").equals("space")
-
-//        database.child("Articles").child("category").get().addOnSuccessListener {
-//            Log.i("firebase", "Got value ${it.}")
-//        }.addOnFailureListener{
-//            Log.e("firebase", "Error getting data", it)
-//        }
     }
 
     private fun checkUser() {
