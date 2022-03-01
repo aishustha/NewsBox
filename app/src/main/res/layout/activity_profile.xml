@@ -192,12 +192,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Logout" />
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/travel" />
         </LinearLayout>
     </ScrollView>
 
