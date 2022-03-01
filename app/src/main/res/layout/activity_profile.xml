@@ -7,6 +7,9 @@
     android:orientation="vertical"
     android:padding="30dp"
     tools:context=".Profile">
+
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,31 +17,174 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <TextView
+                android:id="@+id/textView111"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="24dp"
+                android:text="Latest News" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="You're logged in" />
+            <ImageView
+                android:id="@+id/imageView112"
+                android:layout_width="match_parent"
+                android:layout_height="234dp"
+                app:srcCompat="@mipmap/world" />
 
-    <TextView
-        android:id="@+id/emailTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="email" />
-
-    <TextView
-        android:id="@+id/data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="" />
+            <TextView
+                android:id="@+id/textView113"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:textSize="24dp"
+                android:text="Trudeau revokes Emergencies Act, saying existing laws are enough to deal with protesters" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="30dp"
+                android:orientation="horizontal">
 
-        android:id="@+id/rNewsList"
-        android:layout_width="match_parent"
-        android:layout_height="520dp"
-        tools:listitem="@layout/individual_article"/>
+                <TextView
+                    android:id="@+id/textView114"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/purple_200"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:paddingRight="15dp"
+                    android:text="Economy" />
+
+                <TextView
+                    android:id="@+id/textView115"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:paddingRight="100dp"
+                    android:text="30 min ago" />
+
+                <Button
+                    android:id="@+id/view_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View" />
+            </LinearLayout>
+
+
+
+
+            <ImageView
+                android:id="@+id/imageView222"
+                android:layout_width="match_parent"
+                android:layout_height="234dp"
+                app:srcCompat="@mipmap/travel" />
+
+            <TextView
+                android:id="@+id/textView223"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:textSize="24dp"
+                android:text="CDC adds just one new destination to its highest-risk category for travel" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView224"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/purple_200"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:paddingRight="15dp"
+                    android:text="Travel" />
+
+                <TextView
+                    android:id="@+id/textView225"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:text="45 min ago" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView332"
+                android:layout_width="match_parent"
+                android:layout_height="234dp"
+                app:srcCompat="@mipmap/style" />
+
+            <TextView
+                android:id="@+id/textView333"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:textSize="24dp"
+                android:text="The Japanese photographer who shrink-wraps entire families -- and their homes" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView334"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/purple_200"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:paddingRight="15dp"
+                    android:text="Style" />
+
+                <TextView
+                    android:id="@+id/textView335"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:text="50 min ago" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <androidx.recyclerview.widget.RecyclerView
+
+                android:id="@+id/rNewsList"
+                android:layout_width="match_parent"
+                android:layout_height="101dp"
+                tools:listitem="@layout/individual_article" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You're logged in" />
+
+            <TextView
+                android:id="@+id/emailTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="email" />
 
     <Button
         android:id="@+id/logoutBtn"
@@ -46,6 +192,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Logout" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/travel" />
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 </LinearLayout>
