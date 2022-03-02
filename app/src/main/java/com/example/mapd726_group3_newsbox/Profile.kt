@@ -5,23 +5,30 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.ActionBar
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mapd726_group3_newsbox.databinding.ActivityExploreBinding
+import androidx.viewpager2.widget.ViewPager2
 import com.example.mapd726_group3_newsbox.databinding.ActivityProfileBinding
+import com.example.mapd726_group3_newsbox.adapter.ViewPagerAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.database.core.RepoManager.clear
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
-import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import org.w3c.dom.Comment
 
 class Profile : AppCompatActivity() {
     //database reference for reading from database
@@ -41,6 +48,10 @@ class Profile : AppCompatActivity() {
 
     //FirebaseAuth
     private lateinit var firebaseAuth: FirebaseAuth
+
+
+    lateinit var appBarConfiguration: AppBarConfiguration
+    lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +91,52 @@ class Profile : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
+        val viewPager =findViewById<ViewPager2>(R.id.view_pager_2)
+
+        val adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
+
+        viewPager.adapter = adapter
+        TabLayoutMediator(tabLayout, viewPager) {tab, position ->
+            when(position) {
+                0-> {
+                    tab.text="First"
+                }
+                1-> {
+                    tab.text="Second"
+                }
+                2-> {
+                    tab.text="Third"
+                }
+                3-> {
+                    tab.text="Fourth"
+                }
+                4-> {
+                    tab.text="Fifth"
+                }
+            }
+        }.attach()
+
+
+        //Bottom Navigation
+        navController = this.findNavController(R.id.hostFragment)
+        val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        navView.setupWithNavController(navController)
+
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        val navBarView: NavigationView= findViewById(R.id.navigation_view)
+        //Navigation up button
+
+        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+
+        //Drawer Navigation
+       NavigationUI.setupWithNavController(navBarView, navController)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
 
 

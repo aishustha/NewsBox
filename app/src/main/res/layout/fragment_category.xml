@@ -5,17 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HomeFragment">
+    tools:context=".CategoryFragment">
+
+
+
+
 
     <TextView
-        android:id="@+id/text_home"
+        android:id="@+id/text_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
-        android:text="home"
+        android:text="category"
         android:textSize="20sp" />
 
 
