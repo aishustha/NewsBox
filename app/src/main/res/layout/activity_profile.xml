@@ -15,6 +15,13 @@
         tools:context=".Profile"
         android:fitsSystemWindows="true">
 
+        <ListView
+            android:id="@+id/activity_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        </ListView>
+
 
         <fragment
             android:id="@+id/hostFragment"
@@ -70,12 +77,6 @@
                     android:layout_height="wrap_content"
                     android:text="email" />
 
-        <Button
-            android:id="@+id/logoutBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Logout" />
             </LinearLayout>
         </ScrollView>
 
@@ -84,6 +85,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView" />
+
+
+
+
+    <Button
+        android:id="@+id/logoutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Logout" />
+
+
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -93,26 +106,3 @@
         android:layout_gravity = "start"
         app:menu="@menu/navigation_menu"/>
 </androidx.drawerlayout.widget.DrawerLayout>
-
-
-
-
-
-<!--    <?xml version="1.0" encoding="utf-8"?>-->
-
-<!--<LinearLayout-->
-<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--xmlns:tools="http://schemas.android.com/tools"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="match_parent"-->
-<!--android:orientation="vertical"-->
-<!--tools:context=".Profile">-->
-
-<!--<androidx.recyclerview.widget.RecyclerView-->
-<!--    android:id="@+id/rNewsList"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    tools:itemCount="5"-->
-<!--    tools:listitem="@layout/card_view_design" />-->
-
-<!--</LinearLayout>-->

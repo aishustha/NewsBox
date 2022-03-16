@@ -1,11 +1,18 @@
 package com.example.mapd726_group3_newsbox
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.BaseAdapter
 import android.widget.Button
+import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -40,6 +47,7 @@ class Profile : AppCompatActivity() {
     private  lateinit var actionBar: ActionBar
     lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navController: NavController
+    lateinit var scrapedData
 
     //other variables
     private lateinit var articleArrayList: ArrayList<Article>
@@ -142,6 +150,48 @@ class Profile : AppCompatActivity() {
 
 
     }
+
+     // To render items on the listview
+    private class MyCustomNewsActivityAdapter(context: Context):BaseAdapter(){
+         private val mContext: Context
+
+         init{
+            mContext = context
+         }
+
+         // responsible for how many rows is in my list
+         override fun getCount(): Int {
+            return 5;
+//            return scrapedData.length;
+         }
+
+         override fun getItemId(p0: Int): Long {
+            return p0.toLong()
+         }
+
+         override fun getItem(p0: Int): Any {
+            return "Test String"
+         }
+
+         override fun getView(position: Int, convertView: View?, viewGroup: ViewGroup?): View {
+
+             // inject custom XML layout  using layoutInflater
+             val layoutInflater = LayoutInflater.from(mContext)
+             val rowMain = layoutInflater.inflate(R.layout.main_row, viewGroup, false)
+
+             val newsTitle = rowMain.findViewById<TextView>(R.id.newsTitle)
+             val newsImage = rowMain.findViewById<TextView>(R.id.newsImage)
+             val newsDescrption = rowMain.findViewById<TextView>(R.id.newsDescription)
+
+             // fix issue here - pass or access scrapedData array here and render it into view
+//             newsTitle.text = scrapedData.get(position).title
+//             newsTitle.image = scrapedData.get(position).image
+//             newsTitle.text = scrapedData.get(position).description
+
+             return rowMain
+         }
+    }
+
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
