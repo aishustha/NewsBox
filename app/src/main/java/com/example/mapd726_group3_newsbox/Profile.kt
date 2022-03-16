@@ -167,28 +167,26 @@ class Profile : AppCompatActivity() {
                     data?.let {
                         for ((key, value) in data) {
                             val v = value as Map<*, *>
-                            article.title = v["title"]as String
-                            Log.d(TAG, "article t "+article.title)
-                            article.body = v["summary"]as String
-                            Log.d(TAG, "article b "+article.body)
-                            article.source = v["content_html"] as String
-                            Log.d(TAG, "article s "+article.source)
+                            val title = v["title"]as String
+                            //Log.d(TAG, "article t "+article.title)
+                            val body = v["summary"]as String
+                            //Log.d(TAG, "article b "+article.body)
+                            val source = v["content_html"] as String
+                            //Log.d(TAG, "article s "+article.source)
 //                            val datePublished = v["date_published"]
 //                            Log.d(TAG, "$key -> $datePublished")
 //                            val guid = v["guid"]
 //                            Log.d(TAG, "$key -> $guid")
 //                            val url = v["url"]
 //                            Log.d(TAG, "$key -> $url")
-                            article.image = R.drawable.default_article
-                            articleArrayList.add(article)
-                            //articleArrayList.add(Article(R.drawable.default_article,title.toString(), summary.toString(),contentHtml.toString()))
 
+                            val article = Article(R.drawable.default_article,title, body, source)
+                            articleArrayList.add(article)
                         }
                         val c = articleArrayList.count()
+
                         // This will pass the ArrayList to our Adapter
                         val recyclerViewAdapter = RecyclerViewAdapter(articleArrayList)
-
-                        // Setting the Adapter with the recyclerview
                         recyclerview.adapter = recyclerViewAdapter
                     }
                 }
@@ -212,19 +210,26 @@ class Profile : AppCompatActivity() {
                     data?.let {
                         for ((key, value) in data) {
                             val v = value as Map<*, *>
-                            val title = v["title"]
+                            val title = v["title"] as String
                             Log.d(TAG, "$key -> $title")
-                            val summary = v["summary"]
+                            val summary = v["summary"] as String
                             Log.d(TAG, "$key -> $summary")
-                            val contentHtml = v["content_html"]
+                            val contentHtml = v["content_html"] as String
                             Log.d(TAG, "$key -> $contentHtml")
-                            val datePublished = v["date_published"]
+                            val datePublished = v["date_published"] as String
                             Log.d(TAG, "$key -> $datePublished")
-                            val guid = v["guid"]
+                            val guid = v["guid"] as String
                             Log.d(TAG, "$key -> $guid")
-                            val url = v["url"]
+                            val url = v["url"] as String
                             Log.d(TAG, "$key -> $url")
+                            val article = Article(R.drawable.default_article,title, summary, url)
+                            articleArrayList.add(article)
                         }
+                        val c = articleArrayList.count()
+
+                        // This will pass the ArrayList to our Adapter
+                        val recyclerViewAdapter = RecyclerViewAdapter(articleArrayList)
+                        recyclerview.adapter = recyclerViewAdapter
                     }
                 }
             }.addOnFailureListener{
@@ -247,20 +252,26 @@ class Profile : AppCompatActivity() {
                     data?.let {
                         for ((key, value) in data) {
                             val v = value as Map<*, *>
-                            val title = v["title"]
+                            val title = v["title"] as String
                             Log.d(TAG, "$key -> $title")
-                            val summary = v["summary"]
+                            val summary = v["summary"] as String
                             Log.d(TAG, "$key -> $summary")
-                            val contentHtml = v["content_html"]
+                            val contentHtml = v["content_html"] as String
                             Log.d(TAG, "$key -> $contentHtml")
-                            val datePublished = v["date_published"]
+                            val datePublished = v["date_published"] as String
                             Log.d(TAG, "$key -> $datePublished")
-                            val guid = v["guid"]
+                            val guid = v["guid"] as String
                             Log.d(TAG, "$key -> $guid")
-                            val url = v["url"]
+                            val url = v["url"] as String
                             Log.d(TAG, "$key -> $url")
-
+                            val article = Article(R.drawable.default_article,title, summary, url)
+                            articleArrayList.add(article)
                         }
+                        val c = articleArrayList.count()
+
+                        // This will pass the ArrayList to our Adapter
+                        val recyclerViewAdapter = RecyclerViewAdapter(articleArrayList)
+                        recyclerview.adapter = recyclerViewAdapter
                     }
                 }
             }.addOnFailureListener{
