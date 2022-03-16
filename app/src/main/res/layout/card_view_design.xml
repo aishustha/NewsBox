@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="5dp"
     app:cardElevation="6dp">
 
     <LinearLayout
@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/articleImage"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
+            android:layout_height="wrap_content"
             android:src="@mipmap/world"/>
 
         <TextView
@@ -33,8 +33,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginLeft="15dp"
             android:text="Item"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="15sp" />
         <TextView
             android:id="@+id/articleSource"
             android:layout_width="match_parent"
@@ -42,8 +41,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginLeft="15dp"
             android:text="Item"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 

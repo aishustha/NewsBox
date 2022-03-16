@@ -43,6 +43,9 @@ class Profile : AppCompatActivity() {
 
     //other variables
     private lateinit var articleArrayList: ArrayList<Article>
+    private lateinit var article: Article
+    // getting the recyclerview by its id
+    private lateinit var recyclerview: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,39 +63,20 @@ class Profile : AppCompatActivity() {
 
         //connection for reading from database
         database= FirebaseFirestore.getInstance()
-        getBbcData()
-        getFoxData()
-        getCnnData()
-
 
         /*********************************    RECYCLERVIEW     *************************/
-//          setContentView(R.layout.activity_detail2)
-        // getting the recyclerview by its id
-        val recyclerview = findViewById<RecyclerView>(R.id.rNewsList)
+        // initializig needed variables
+        articleArrayList = ArrayList<Article>()
+        article = Article(R.drawable.default_article,"","","")
+        recyclerview = findViewById<RecyclerView>(R.id.rNewsList)
 
         // this creates a vertical layout Manager
         recyclerview.layoutManager = LinearLayoutManager(this)
 
-        // ArrayList of class ItemsViewModel
-        val data = ArrayList<Article>()
-
-        // This loop will create 20 Views containing
-        // the image with the count of view
-            for (i in 1..5) {
-                // data.add(Article("Item " + i, "this is the body", "sourceof this sauce"))
-                data.add(Article(R.drawable.default_article, "Item " + i,"this is the body", "sourceof this sauce"))
-            }
-
-        // This will pass the ArrayList to our Adapter
-        val recyclerViewAdapter = RecyclerViewAdapter(data)
-
-        // Setting the Adapter with the recyclerview
-        recyclerview.adapter = recyclerViewAdapter
+        getBbcData()
 
         /*********************************   RECYCLERVIEW_END    *************************/
 
-        articleArrayList = arrayListOf<Article>()
-        getDataList()
 
         /**********************************   BUTTONS    ************************/
 //        val viewBtn = findViewById<Button>(R.id.view_btn)
@@ -107,6 +91,8 @@ class Profile : AppCompatActivity() {
             checkUser()
         }
         /**********************************   BUTTONS END   ************************/
+
+
         /**********************************   TABS AND HEADINGS    ************************/
 
         val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
@@ -118,20 +104,22 @@ class Profile : AppCompatActivity() {
         TabLayoutMediator(tabLayout, viewPager) {tab, position ->
             when(position) {
                 0-> {
-                    tab.text="First"
+                    tab.text="CNN  News"
                 }
                 1-> {
-                    tab.text="Second"
+                    tab.text="BBC  News"
+
                 }
                 2-> {
-                    tab.text="Third"
+                    tab.text="FOX News"
+
                 }
-                3-> {
-                    tab.text="Fourth"
-                }
-                4-> {
-                    tab.text="Fifth"
-                }
+//                3-> {
+//                    tab.text="Fourth"
+//                }
+//                4-> {
+//                    tab.text="Fifth"
+//                }
             }
         }.attach()
 
@@ -163,33 +151,12 @@ class Profile : AppCompatActivity() {
 
     //gets list from collections where category matches the search string cat
 
-    private fun getDataList()
-    { database= FirebaseFirestore.getInstance()
-        val list = database.collection("ScrapedFeed").document("BBC News - World")
-            .get().addOnSuccessListener {
-                if (it.exists()) {
-                    val data = it.data
-                    //println(data)
-
-                    //set to text view
-//                    binding.data.text = data.toString()
-                    data?.let {
-                        for ((key, value) in data) {
-                            val v = value as Map<*, *>
-                            val time = v["time"]
-                            Log.d(TAG, "$key -> $time")
-                        }
-                    }
-                }
-            }.addOnFailureListener{
-                Log.e("firebase", "Error getting data", it)
-            }
-    }
 
     //gets list of values from BBC sccrapedFeed
     private fun getBbcData()
     {
         database= FirebaseFirestore.getInstance()
+
         val list = database.collection("ScrapedFeed").document("BBC News - World")
             .get().addOnSuccessListener {
                 if (it.exists()) {
@@ -200,20 +167,29 @@ class Profile : AppCompatActivity() {
                     data?.let {
                         for ((key, value) in data) {
                             val v = value as Map<*, *>
-                            val title = v["title"]
-                            Log.d(TAG, "$key -> $title")
-                            val summary = v["summary"]
-                            Log.d(TAG, "$key -> $summary")
-                            val contentHtml = v["content_html"]
-                            Log.d(TAG, "$key -> $contentHtml")
-                            val datePublished = v["date_published"]
-                            Log.d(TAG, "$key -> $datePublished")
-                            val guid = v["guid"]
-                            Log.d(TAG, "$key -> $guid")
-                            val url = v["url"]
-                            Log.d(TAG, "$key -> $url")
-                            articleArrayList.add(Article(R.drawable.default_article,title.toString(), summary.toString(),contentHtml.toString()))
+                            article.title = v["title"]as String
+                            Log.d(TAG, "article t "+article.title)
+                            article.body = v["summary"]as String
+                            Log.d(TAG, "article b "+article.body)
+                            article.source = v["content_html"] as String
+                            Log.d(TAG, "article s "+article.source)
+//                            val datePublished = v["date_published"]
+//                            Log.d(TAG, "$key -> $datePublished")
+//                            val guid = v["guid"]
+//                            Log.d(TAG, "$key -> $guid")
+//                            val url = v["url"]
+//                            Log.d(TAG, "$key -> $url")
+                            article.image = R.drawable.default_article
+                            articleArrayList.add(article)
+                            //articleArrayList.add(Article(R.drawable.default_article,title.toString(), summary.toString(),contentHtml.toString()))
+
                         }
+                        val c = articleArrayList.count()
+                        // This will pass the ArrayList to our Adapter
+                        val recyclerViewAdapter = RecyclerViewAdapter(articleArrayList)
+
+                        // Setting the Adapter with the recyclerview
+                        recyclerview.adapter = recyclerViewAdapter
                     }
                 }
             }.addOnFailureListener{
@@ -225,6 +201,7 @@ class Profile : AppCompatActivity() {
     private fun getCnnData()
     {
         database= FirebaseFirestore.getInstance()
+
         val list = database.collection("ScrapedFeed").document("CNN.com - RSS Channel - App International Edition")
             .get().addOnSuccessListener {
                 if (it.exists()) {
@@ -247,8 +224,6 @@ class Profile : AppCompatActivity() {
                             Log.d(TAG, "$key -> $guid")
                             val url = v["url"]
                             Log.d(TAG, "$key -> $url")
-                            articleArrayList.add(Article(R.drawable.default_article,title.toString(), summary.toString(),contentHtml.toString()))
-
                         }
                     }
                 }
@@ -285,6 +260,30 @@ class Profile : AppCompatActivity() {
                             val url = v["url"]
                             Log.d(TAG, "$key -> $url")
 
+                        }
+                    }
+                }
+            }.addOnFailureListener{
+                Log.e("firebase", "Error getting data", it)
+            }
+    }
+
+
+    private fun getDataList()
+    { database= FirebaseFirestore.getInstance()
+        val list = database.collection("ScrapedFeed").document("BBC News - World")
+            .get().addOnSuccessListener {
+                if (it.exists()) {
+                    val data = it.data
+                    //println(data)
+
+                    //set to text view
+//                    binding.data.text = data.toString()
+                    data?.let {
+                        for ((key, value) in data) {
+                            val v = value as Map<*, *>
+                            val time = v["time"]
+                            Log.d(TAG, "$key -> $time")
                         }
                     }
                 }
