@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:orientation="vertical"
         android:padding="5dp">
 
@@ -24,6 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Item"
+            android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
         <TextView
@@ -31,7 +34,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
             android:text="Item"
             android:textSize="15sp" />
         <TextView
@@ -40,6 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="15dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
             android:text="Item"
             android:textSize="12sp" />
 

@@ -36,7 +36,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="wrap_content"
-            app:tabMode="scrollable"
+            app:tabMode="fixed"
             android:layout_height="wrap_content" />
 
         <androidx.viewpager2.widget.ViewPager2

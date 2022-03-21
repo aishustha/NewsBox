@@ -108,11 +108,9 @@ class Profile : AppCompatActivity() {
                 }
                 1-> {
                     tab.text="BBC  News"
-
                 }
                 2-> {
                     tab.text="FOX News"
-
                 }
 //                3-> {
 //                    tab.text="Fourth"
@@ -171,16 +169,16 @@ class Profile : AppCompatActivity() {
                             //Log.d(TAG, "article t "+article.title)
                             val body = v["summary"]as String
                             //Log.d(TAG, "article b "+article.body)
-                            val source = v["content_html"] as String
+                            val content = v["content_html"] as String
                             //Log.d(TAG, "article s "+article.source)
-//                            val datePublished = v["date_published"]
+                            val datePublished = v["date_published"]
 //                            Log.d(TAG, "$key -> $datePublished")
-//                            val guid = v["guid"]
+                            val guid = v["guid"]
 //                            Log.d(TAG, "$key -> $guid")
-//                            val url = v["url"]
+                            val url = v["url"] as String
 //                            Log.d(TAG, "$key -> $url")
 
-                            val article = Article(R.drawable.default_article,title, body, source)
+                            val article = Article(R.drawable.default_article,title, body, url)
                             articleArrayList.add(article)
                         }
                         val c = articleArrayList.count()
