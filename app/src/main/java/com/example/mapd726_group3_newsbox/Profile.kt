@@ -66,7 +66,7 @@ class Profile : AppCompatActivity() {
         /*********************************    RECYCLERVIEW     *************************/
         // initializig needed variables
         articleArrayList = ArrayList<Article>()
-        article = Article(R.drawable.default_article,"","","")
+        article = Article(R.drawable.default_article," title","summary","source")
         recyclerview = findViewById<RecyclerView>(R.id.rNewsList)
 
 
@@ -78,7 +78,7 @@ class Profile : AppCompatActivity() {
         val cnn = "CNN.com - RSS Channel - App International Edition"
         getDataFromFirebase(bbc)
         getDataFromFirebase(fox)
-        //getBbcData(cnn)
+        getDataFromFirebase(cnn)
 
 
         /*********************************   RECYCLERVIEW_END    *************************/
