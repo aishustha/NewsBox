@@ -1,6 +1,9 @@
 package com.example.mapd726_group3_newsbox.adapter
 
+
+import android.app.Activity
 import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -11,10 +14,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.ContextCompat.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mapd726_group3_newsbox.Article
 import com.example.mapd726_group3_newsbox.R
+import com.google.android.material.internal.ContextUtils.getActivity
 
 class RecyclerViewAdapter (private val mList: List<Article>, var mContext:Context) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
@@ -45,14 +49,23 @@ class RecyclerViewAdapter (private val mList: List<Article>, var mContext:Contex
         // Button to open web view of the selected article
         holder.button_more.setOnClickListener {
             val openURL = Intent(Intent.ACTION_VIEW)
-            // Set flag to open new activity 
+            // Set flag to open new activity
             openURL.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             openURL.data = Uri.parse(ItemsViewModel.source)
             mContext.startActivity(openURL)
             println(ItemsViewModel.source)
 
         }
+        // Share the link (Copy to clipboard)
+        holder.button_share.setOnClickListener {
+            val textTocopy = ItemsViewModel.source
+            val clipboard = mContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("text",textTocopy)
+            clipboard.setPrimaryClip(clipData)
+            // Toast message
+            Toast.makeText(mContext,"Link copied to clipboard. Share it! ",Toast.LENGTH_LONG).show()
 
+        }
 
     }
 
@@ -72,7 +85,9 @@ class RecyclerViewAdapter (private val mList: List<Article>, var mContext:Contex
         val textView2: TextView = itemView.findViewById(R.id.articleBody)
         val textView3: TextView = itemView.findViewById(R.id.articleSource)
 
+        // Buttons in cards
         val button_more: Button = itemView.findViewById(R.id.button_more)
+        val button_share: Button = itemView.findViewById(R.id.button_share)
         }
 
 }
