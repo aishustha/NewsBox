@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import androidx.appcompat.app.ActionBar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -74,7 +73,13 @@ class Profile : AppCompatActivity() {
         // this creates a vertical layout Manager
         recyclerview.layoutManager = LinearLayoutManager(this)
 
-        getBbcData()
+        val bbc = "BBC News - World"
+        val fox = "FOX News"
+        val cnn = "CNN.com - RSS Channel - App International Edition"
+        getDataFromFirebase(bbc)
+        getDataFromFirebase(fox)
+        //getBbcData(cnn)
+
 
         /*********************************   RECYCLERVIEW_END    *************************/
 
@@ -152,17 +157,14 @@ class Profile : AppCompatActivity() {
 
 
     //gets list of values from BBC sccrapedFeed
-    private fun getBbcData()
+    private fun getDataFromFirebase(document:String)
     {
         database= FirebaseFirestore.getInstance()
 
-        val list = database.collection("ScrapedFeed").document("BBC News - World")
+        val list = database.collection("ScrapedFeed").document(document)
             .get().addOnSuccessListener {
                 if (it.exists()) {
                     val data = it.data
-//                    binding.data.text = data.toString()
-
-                    // binding.data.text = data.toString()
                     data?.let {
                         for ((key, value) in data) {
                             val v = value as Map<*, *>
@@ -177,7 +179,7 @@ class Profile : AppCompatActivity() {
                             val guid = v["guid"]
 //                            Log.d(TAG, "$key -> $guid")
                             val url = v["url"] as String
-//                            Log.d(TAG, "$key -> $url")
+                            Log.d(TAG, "$key -> $url")
 
                             val article = Article(R.drawable.default_article,title, body, url)
                             articleArrayList.add(article)
@@ -194,117 +196,6 @@ class Profile : AppCompatActivity() {
                 Log.e("firebase", "Error getting data", it)
             }
     }
-
-    //gets list of values from CNN sccrapedFeed
-    private fun getCnnData()
-    {
-        database= FirebaseFirestore.getInstance()
-
-        val list = database.collection("ScrapedFeed").document("CNN.com - RSS Channel - App International Edition")
-            .get().addOnSuccessListener {
-                if (it.exists()) {
-                    val data = it.data
-//                    binding.data.text = data.toString()
-
-                    // binding.data.text = data.toString()
-                    data?.let {
-                        for ((key, value) in data) {
-                            val v = value as Map<*, *>
-                            val title = v["title"] as String
-                            Log.d(TAG, "$key -> $title")
-                            val summary = v["summary"] as String
-                            Log.d(TAG, "$key -> $summary")
-                            val contentHtml = v["content_html"] as String
-                            Log.d(TAG, "$key -> $contentHtml")
-                            val datePublished = v["date_published"] as String
-                            Log.d(TAG, "$key -> $datePublished")
-                            val guid = v["guid"] as String
-                            Log.d(TAG, "$key -> $guid")
-                            val url = v["url"] as String
-                            Log.d(TAG, "$key -> $url")
-                            val article = Article(R.drawable.default_article,title, summary, url)
-                            articleArrayList.add(article)
-                        }
-                        val c = articleArrayList.count()
-
-                        // This will pass the ArrayList to our Adapter
-                        var context = applicationContext
-                        val recyclerViewAdapter = RecyclerViewAdapter(articleArrayList,context)
-                        recyclerview.adapter = recyclerViewAdapter
-                    }
-                }
-            }.addOnFailureListener{
-                Log.e("firebase", "Error getting data", it)
-            }
-    }
-
-
-    //gets list of values from CNN sccrapedFeed
-    private fun getFoxData()
-    {
-        database= FirebaseFirestore.getInstance()
-        val list = database.collection("ScrapedFeed").document("FOX News")
-            .get().addOnSuccessListener {
-                if (it.exists()) {
-                    val data = it.data
- //                   binding.data.text = data.toString()
-
-                    // binding.data.text = data.toString()
-                    data?.let {
-                        for ((key, value) in data) {
-                            val v = value as Map<*, *>
-                            val title = v["title"] as String
-                            Log.d(TAG, "$key -> $title")
-                            val summary = v["summary"] as String
-                            Log.d(TAG, "$key -> $summary")
-                            val contentHtml = v["content_html"] as String
-                            Log.d(TAG, "$key -> $contentHtml")
-                            val datePublished = v["date_published"] as String
-                            Log.d(TAG, "$key -> $datePublished")
-                            val guid = v["guid"] as String
-                            Log.d(TAG, "$key -> $guid")
-                            val url = v["url"] as String
-                            Log.d(TAG, "$key -> $url")
-                            val article = Article(R.drawable.default_article,title, summary, url)
-                            articleArrayList.add(article)
-                        }
-                        val c = articleArrayList.count()
-
-                        // This will pass the ArrayList to our Adapter
-                        var context = applicationContext
-                        val recyclerViewAdapter = RecyclerViewAdapter(articleArrayList,context)
-                        recyclerview.adapter = recyclerViewAdapter
-                    }
-                }
-            }.addOnFailureListener{
-                Log.e("firebase", "Error getting data", it)
-            }
-    }
-
-
-    private fun getDataList()
-    { database= FirebaseFirestore.getInstance()
-        val list = database.collection("ScrapedFeed").document("BBC News - World")
-            .get().addOnSuccessListener {
-                if (it.exists()) {
-                    val data = it.data
-                    //println(data)
-
-                    //set to text view
-//                    binding.data.text = data.toString()
-                    data?.let {
-                        for ((key, value) in data) {
-                            val v = value as Map<*, *>
-                            val time = v["time"]
-                            Log.d(TAG, "$key -> $time")
-                        }
-                    }
-                }
-            }.addOnFailureListener{
-                Log.e("firebase", "Error getting data", it)
-            }
-    }
-
 
     private fun checkUser() {
         //check user is logged in or not
