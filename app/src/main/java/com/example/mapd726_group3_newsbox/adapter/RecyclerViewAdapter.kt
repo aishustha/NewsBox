@@ -1,16 +1,22 @@
 package com.example.mapd726_group3_newsbox.adapter
 
+import android.content.ClipData
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mapd726_group3_newsbox.Article
 import com.example.mapd726_group3_newsbox.R
 
-class RecyclerViewAdapter (private val mList: List<Article>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter (private val mList: List<Article>, var mContext:Context) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,7 +42,22 @@ class RecyclerViewAdapter (private val mList: List<Article>) : RecyclerView.Adap
         holder.textView2.text = ItemsViewModel.body
         holder.textView3.text = ItemsViewModel.source
 
+        // Button to open web view of the selected article
+        holder.button_more.setOnClickListener {
+            val openURL = Intent(Intent.ACTION_VIEW)
+            // Set flag to open new activity 
+            openURL.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            openURL.data = Uri.parse(ItemsViewModel.source)
+            mContext.startActivity(openURL)
+            println(ItemsViewModel.source)
+
+        }
+
+
     }
+
+
+
 
     // return the number of the items in the list
     override fun getItemCount(): Int
@@ -51,6 +72,10 @@ class RecyclerViewAdapter (private val mList: List<Article>) : RecyclerView.Adap
         val textView2: TextView = itemView.findViewById(R.id.articleBody)
         val textView3: TextView = itemView.findViewById(R.id.articleSource)
 
-    }
+        val button_more: Button = itemView.findViewById(R.id.button_more)
+        }
+
 }
+
+
 

@@ -70,6 +70,7 @@ class Profile : AppCompatActivity() {
         article = Article(R.drawable.default_article,"","","")
         recyclerview = findViewById<RecyclerView>(R.id.rNewsList)
 
+
         // this creates a vertical layout Manager
         recyclerview.layoutManager = LinearLayoutManager(this)
 
@@ -184,7 +185,8 @@ class Profile : AppCompatActivity() {
                         val c = articleArrayList.count()
 
                         // This will pass the ArrayList to our Adapter
-                        val recyclerViewAdapter = RecyclerViewAdapter(articleArrayList)
+                        var context = applicationContext
+                        val recyclerViewAdapter = RecyclerViewAdapter(articleArrayList,context)
                         recyclerview.adapter = recyclerViewAdapter
                     }
                 }
@@ -226,7 +228,8 @@ class Profile : AppCompatActivity() {
                         val c = articleArrayList.count()
 
                         // This will pass the ArrayList to our Adapter
-                        val recyclerViewAdapter = RecyclerViewAdapter(articleArrayList)
+                        var context = applicationContext
+                        val recyclerViewAdapter = RecyclerViewAdapter(articleArrayList,context)
                         recyclerview.adapter = recyclerViewAdapter
                     }
                 }
@@ -268,7 +271,8 @@ class Profile : AppCompatActivity() {
                         val c = articleArrayList.count()
 
                         // This will pass the ArrayList to our Adapter
-                        val recyclerViewAdapter = RecyclerViewAdapter(articleArrayList)
+                        var context = applicationContext
+                        val recyclerViewAdapter = RecyclerViewAdapter(articleArrayList,context)
                         recyclerview.adapter = recyclerViewAdapter
                     }
                 }

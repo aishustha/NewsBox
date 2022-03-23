@@ -50,6 +50,14 @@
             android:text="Item"
             android:textSize="12sp" />
 
+        <Button
+            android:id="@+id/button_more"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="More.."
+            android:textAlignment="center"
+            android:textSize="10dp" />
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
